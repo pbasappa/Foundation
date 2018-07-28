@@ -1,0 +1,32 @@
+class StringPermute
+{
+    static void Main()
+    {
+        string input = "Hello";
+        HashSet<string> permutations = new HashSet<string>();
+        
+        GeneratePermutations("", input, permutations);
+        
+        foreach(var s in permutations)
+        {
+            Console.WriteLine(s);
+        }
+    }
+    
+    public static void GeneratePermutations(string prefix, string input, HashSet<string> permutations)
+    {
+        int inputLength = input.Length;
+        if(inputLength == 0)
+        {
+            if(!permutations.Contains(prefix))
+            {
+                permutations.Add(prefix);
+            }
+        }
+        
+        for(int i=0; i<inputLength; i++)
+        {
+            GeneratePermutations(prefix + input[i], input.Substring(0, i) + input.Substring(i+1, inputLength - (i+1)), permutations);
+        }
+    }
+}
